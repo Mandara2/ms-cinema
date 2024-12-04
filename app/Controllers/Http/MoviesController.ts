@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import movie from 'App/Models/Movie';
+import Ws from 'App/Services/Ws';
 import MovieValidator from 'App/Validators/MovieValidator';
 
 export default class moviesController { //se encarga de hacer las operaciones de CRUD
@@ -43,6 +44,20 @@ export default class moviesController { //se encarga de hacer las operaciones de
             response.status(204);
             return await themovie.delete();
     }
+
+    public async notificar({ response }: HttpContextContract) {
+
+        Ws.io.emit('notifications', { message: 'Nuevo mensaje' })
+        
+        response.status(200);
+        
+        return {
+        
+        "message":"ok"
+        
+        };
+        
+        }
 }
 
 
